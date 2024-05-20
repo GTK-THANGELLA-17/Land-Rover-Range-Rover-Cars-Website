@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range Rover - Explore Luxury SUVs</title>
+    <style>
+        /* CSS styles */
+
+        /* Global styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Header styles */
+        header {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        header video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        }
+
+        /* Navigation styles */
+        nav {
+            background: linear-gradient(180.2deg, rgb(30, 33, 48) 6.8%, rgb(74, 98, 110) 131%);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1; /* Ensure navigation appears above the video */
+            position: relative;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: #555;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Main styles */
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .company-info {
+            margin-bottom: 20px;
+        }
+
+        /* Car styles */
+        .car-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.5s ease; /* Smooth transition */
+        }
+
+        .car {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+            cursor: pointer;
+        }
+
+        .car:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+        }
+
+        .car img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .car h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .car p {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Experience modal styles */
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            padding: 20px;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 13px 18px 9px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            position: relative;
+            width: 80%;
+            max-width: 600px; /* Limit modal width */
+            height: 80%;
+            max-height: 600px; /* Limit modal height */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden; /* Hide overflow content */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #000;
+            font-size: 20px;
+            z-index: 1; /* Ensure close button appears above the video */
+        }
+
+        /* Footer styles */
+        footer {
+            background: linear-gradient(180.2deg, rgb(30, 33, 48) 6.8%, rgb(74, 98, 110) 131%);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .car {
+                width: 100%; /* Full width on small screens */
+            }
+        }
+
+        /* Button styles */
+        button {
+            background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%); /* Default button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker color on hover */
+            transform: translateY(-2px);
+        }
+
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+   <header>
+    <video autoplay muted loop>
+        <source src="./Car Models/Car Rides/Range Rover - new.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div> <!-- Overlay for better contrast -->
+</header>
+
+<nav>
+    <a href="#" onclick="showCars('Land Rover')">Land Rover</a>
+    <a href="#" onclick="showCars('Range Rover')">Range Rover</a>
+</nav>
+
+<main>
+    <div class="company-info">
+        <h2>About Land Rover Range Rover</h2>
+        <p>Land Rover Range Rover is a luxury car brand that specializes in SUVs. Known for their elegance, performance, and off-road capabilities, Land Rover Range Rover vehicles are designed to provide comfort and style in both urban and adventurous settings.</p>
+        <p>Explore our range of luxury SUVs to discover the perfect combination of sophistication and ruggedness.</p>
+    </div>
+    <div class="car-container">
+        <!-- Car details will be populated dynamically -->
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2023 Designed and Built By GTK</p>
+</footer>
+
+<!-- Experience modal -->
+<div class="modal-container" id="experienceModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeExperienceModal()">&times;</span>
+        <video controls autoplay loop style="width: 100%; height: 100%;">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<script>
+    // JavaScript functions
+    const cars = {
+        'Land Rover': [
+            { 
+                name: 'Land Rover Defender', 
+                image: "./Car Models/Land Rover Car Models/Land Rover Defender.jpg", 
+                description: 'A rugged off-road vehicle', 
+                price: 'Starting from ₹ 80,00,000 INR', 
+                availability: 'Available at select dealerships', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=XkWk8-HlUiE', 
+                experienceVideo: './Car Models/Car Rides/Land Rover Defender.mp4' 
+            },
+            { 
+                name: 'Land Rover Discovery', 
+                image: "./Car Models/Land Rover Car Models/Land Rover Discovery.jpg", 
+                description: 'A versatile family SUV', 
+                price: 'Starting from ₹ 95,00,000 INR', 
+                availability: 'Available worldwide', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=qRZZ7iEC9vc', 
+                experienceVideo: './Car Models/Car Rides/Land Rover Discovery.mp4' 
+            },
+            { 
+                name: 'Land Rover Range Rover Sport', 
+                image: "./Car Models/Land Rover Car Models/Land Rover Range Rover Sport.jpeg", 
+                description: 'A luxury SUV with sporty performance', 
+                price: 'Starting from ₹ 1,10,00,000 INR', 
+                availability: 'Available at all dealerships', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=R2yPkTcFHmQ&t=11s', 
+                experienceVideo: './Car Models/Car Rides/Land Rover Range Rover Sport.mp4' 
+            }
+        ],
+
+        'Range Rover': [
+            { 
+                name: 'Range Rover Velar', 
+                image: "./Car Models/Range Rover car models/Range Rover Evoque.jpeg", 
+                description: 'A luxury SUV', 
+                price: 'Starting from ₹ 75,00,000 INR', 
+                availability: 'Available worldwide', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=-ueKEIUeMTA', 
+                experienceVideo: './Car Models/Car Rides/Range Rover Velar.mp4' 
+            },
+            { 
+                name: 'Range Rover Sport', 
+                image: "./Car Models/Range Rover car models/Range Rover Sport.jpg", 
+                description: 'A dynamic SUV', 
+                price: 'Starting from ₹ 90,00,000 INR', 
+                availability: 'Available at select dealerships', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=R2yPkTcFHmQ&t=11s', 
+                experienceVideo: './Car Models/Car Rides/Range Rover Sport.mp4' 
+            },
+            { 
+                name: 'Land Rover Range Rover', 
+                image: "./Car Models/Range Rover car models/Land Rover Range Rover.jpg", 
+                description: 'A dynamic luxury SUV', 
+                price: 'Starting from ₹ 2,39,00,000 INR', 
+                availability: 'Available at select dealerships', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu',  
+                review: 'https://www.youtube.com/watch?v=2qWCNiNBKJI', 
+                experienceVideo: './Car Models/Car Rides/Land Rover Range Rover.mp4'  
+            },
+            { 
+                name: 'Range Rover Evoque', 
+                image: "./Car Models/Range Rover car models/Range Rover Velar.jpeg", 
+                description: 'A compact SUV', 
+                price: 'Starting from ₹ 60,00,000 INR', 
+                availability: 'Available at all dealerships', 
+                location: 'https://www.google.com/maps/search/pride+motors+hyderabad/@17.351453,78.4062454,11z/data=!3m1!4b1?entry=ttu', 
+                review: 'https://www.youtube.com/watch?v=Kh1yZQS8XOs', 
+                experienceVideo: './Car Models/Car Rides/Range Rover Evoque.mp4'  
+            }
+        ]
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Show navigation and car container
+        document.querySelector('nav').style.display = 'block';
+        document.querySelector('.car-container').style.opacity = '1'; // Fade-in effect
+    });
+
+    function showCars(category) {
+        const carContainer = document.querySelector('.car-container');
+        carContainer.style.opacity = '0'; // Fade-out effect
+
+        setTimeout(() => { // Delay to allow fade-out effect
+            carContainer.innerHTML = ''; // Clear existing content
+
+            cars[category].forEach(car => {
+                const carElement = document.createElement('div');
+                carElement.classList.add('car');
+                carElement.innerHTML = `
+                    <img src="${car.image}" alt="${car.name}">
+                    <h2>${car.name}</h2>
+                    <p>${car.description}</p>
+                    <p>${car.price}</p>
+                    <p>${car.availability}</p>
+                    <button onclick="showLocation('${car.location}')">Show Available Location</button>
+                    <button onclick="showCarReview('${car.review}')">Car Review</button>
+                    <button onclick="showExperienceModal('${car.experienceVideo.replace(/\\/g, "/")}')">Experience Car Ride</button>
+                `;
+                carContainer.appendChild(carElement);
+            });
+
+            carContainer.style.opacity = '1'; // Fade-in effect
+        }, 500); // Delay duration
+    }
+
+    function showLocation(location) {
+        window.open(location);
+    }
+
+    function showCarReview(reviewUrl) {
+        window.open(reviewUrl, '_blank');
+    }
+
+    function showExperienceModal(videoUrl) {
+        console.log('Showing experience modal with video URL:', videoUrl);
+
+        const modal = document.getElementById('experienceModal');
+        const modalContent = modal.querySelector('.modal-content video');
+
+        modal.style.display = 'flex';
+        document.querySelector('body').style.overflow = 'hidden'; // Disable scrolling
+
+        modalContent.src = videoUrl;
+        modalContent.play().catch(error => {
+            console.error('Error playing video:', error);
+        });
+    }
+
+    function closeExperienceModal() {
+        const modal = document.getElementById('experienceModal');
+        const modalContent = modal.querySelector('.modal-content video');
+
+        modal.style.display = 'none';
+        document.querySelector('body').style.overflow = 'auto'; // Enable scrolling
+
+        modalContent.pause();
+        modalContent.currentTime = 0;
+    }
+</script>
+</body>
+</html>
